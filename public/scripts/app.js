@@ -16,6 +16,8 @@ var IndecisionApp = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
 
+    _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
+    _this.handlePick = _this.handlePick.bind(_this);
     _this.state = {
       options: ['one', 'two', 'four']
     };
@@ -23,6 +25,29 @@ var IndecisionApp = function (_React$Component) {
   }
 
   _createClass(IndecisionApp, [{
+    key: 'handleDeleteOptions',
+    value: function handleDeleteOptions() {
+      this.setState(function () {
+        return {
+          options: []
+        };
+      });
+    }
+
+    // handlePick -> pass down to Action and set up on click
+    // bind here
+    //randomly pick an oprion
+    // in the Action remove handlePick
+
+  }, {
+    key: 'handlePick',
+    value: function handlePick() {
+      var randomNum = Math.floor(Math.random() * this.state.options.length);
+      var option = this.state.options[randomNum];
+      alert(option);
+      console.log(randomNum);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var subtitle = "Put your life in a hans of a computer";
@@ -31,8 +56,13 @@ var IndecisionApp = function (_React$Component) {
         'div',
         null,
         React.createElement(Header, { title: title, subtitle: subtitle }),
-        React.createElement(Action, null),
-        React.createElement(Options, { options: this.state.options }),
+        React.createElement(Action, {
+          hasOptions: this.state.options.length > 0,
+          handlePick: this.handlePick
+        }),
+        React.createElement(Options, {
+          options: this.state.options,
+          handleDeleteOptions: this.handleDeleteOptions }),
         React.createElement(AddOption, null)
       );
     }
@@ -83,11 +113,6 @@ var Action = function (_React$Component3) {
   }
 
   _createClass(Action, [{
-    key: 'hadlePick',
-    value: function hadlePick() {
-      alert('hadlepick');
-    }
-  }, {
     key: 'render',
     value: function render() {
       return React.createElement(
@@ -95,7 +120,9 @@ var Action = function (_React$Component3) {
         null,
         React.createElement(
           'button',
-          { onClick: this.hadlePick },
+          {
+            onClick: this.props.handlePick,
+            disabled: !this.props.hasOptions },
           'What should I do?'
         )
       );
@@ -108,21 +135,13 @@ var Action = function (_React$Component3) {
 var Options = function (_React$Component4) {
   _inherits(Options, _React$Component4);
 
-  function Options(props) {
+  function Options() {
     _classCallCheck(this, Options);
 
-    var _this4 = _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).call(this, props));
-
-    _this4.handleRemoveAll = _this4.handleRemoveAll.bind(_this4);
-    return _this4;
+    return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
   }
 
   _createClass(Options, [{
-    key: 'handleRemoveAll',
-    value: function handleRemoveAll() {
-      console.log(this.props.options);
-    }
-  }, {
     key: 'render',
     value: function render() {
       return React.createElement(
@@ -133,7 +152,7 @@ var Options = function (_React$Component4) {
         }),
         React.createElement(
           'button',
-          { onClick: this.handleRemoveAll },
+          { onClick: this.props.handleDeleteOptions },
           'Remove All'
         )
       );

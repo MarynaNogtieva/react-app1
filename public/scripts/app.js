@@ -31,10 +31,13 @@ var IndecisionApp = function (_React$Component) {
       var _this2 = this;
 
       this.setState(function () {
-        return {
-          options: _this2.props.options
-        };
+        return { options: _this2.props.options };
       });
+      // this.setState(() => {
+      //   return {
+      //     options: this.props.options
+      //   };
+      // });
     }
   }, {
     key: 'handlePick',

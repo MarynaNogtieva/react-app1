@@ -1,13 +1,5 @@
-import './utils.js';
-import subtract, { square, add } from './utils.js';
-console.log('app.js is running');
-console.log(square(4));
-console.log(add(4,6));
-console.log(subtract(100, 81));
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import isSenior, { isAdult, canDrink } from './person.js';
-
-console.log(isAdult(19));
-console.log(canDrink(19));
-
-console.log(isSenior(65));
+const template = React.createElement('p', {}, 'testing');
+ReactDOM.render(template, document.getElementById('app'));

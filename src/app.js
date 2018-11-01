@@ -1,5 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const template = React.createElement('p', {}, 'testing');
-ReactDOM.render(template, document.getElementById('app'));
+import IndecisionApp from './components/IndecisionApp.js'
+
+
+
+// stateless functional component
+
+
+
+
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));

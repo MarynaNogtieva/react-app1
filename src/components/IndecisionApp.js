@@ -3,13 +3,15 @@ import React from 'react';
 import AddOption from './AddOption.js';
 import Action from './Action.js';
 import Header from './Header.js';
-import Options from './Options.js'
+import Options from './Options.js';
+import OptionModal from './OptionModal.js'
 
 
 export default class IndecisionApp extends
 React.Component {
   state = {
-    options: []
+    options: [],
+    selectedOption: undefined
   };
   // constructor(props) {
   //   super(props);
@@ -62,7 +64,9 @@ React.Component {
   handlePick =() => {
     const randomNum = Math.floor(Math.random() * this.state.options.length);
     const option = this.state.options[randomNum];
-    alert(option);
+    this.setState(() => ({
+      selectedOption: option
+    }))
   }
   handleAddOption = (option) => {
     if (!option) {
@@ -74,6 +78,12 @@ React.Component {
     this.setState((prevState) => ({
       options: prevState.options.concat(option)
     }));
+  }
+
+  handleClearSelecteOption = () => {
+    this.setState(() => ({
+      selectedOption: undefined
+    }))
   }
   render() {
     const subtitle = 'Put your life in the hands of a computer';
@@ -93,6 +103,7 @@ React.Component {
         <AddOption
           handleAddOption={this.handleAddOption}
         />
+        <OptionModal selectedOption={this.state.selectedOption} handleClearSelecteOption={this.handleClearSelecteOption}/>
       </div>
     );
   }
